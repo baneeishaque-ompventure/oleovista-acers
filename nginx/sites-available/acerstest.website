@@ -1,8 +1,8 @@
 server {
     server_name acerstest.website;
 
-    # Proxy API calls to Django backend
-    location /company/subscribed-apps/ {
+    # Proxy all API calls to Django backend
+    location ~ ^/(api|users|chat|paper-app|permission|plans|scheduler|web_settings|admin|media|static-backend|company/subscribed-apps|company/current/user|company/users/lists) {
         proxy_pass http://127.0.0.1:8001;
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
@@ -10,25 +10,7 @@ server {
         proxy_set_header X-Forwarded-Proto $scheme;
     }
 
-    # Proxy API calls to Django backend
-    location /company/current/user/ {
-        proxy_pass http://127.0.0.1:8001;
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto $scheme;
-    }
-
-    # Proxy any other API calls
-    location ~ ^/(api|users|chat|paper-app|permission|plans|scheduler|web_settings|admin|media|static-backend)/ {
-        proxy_pass http://127.0.0.1:8001;
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto $scheme;
-    }
-
-    # Proxy everything to the React development server
+    # Proxy everything else to the React development server
     location / {
         proxy_pass http://127.0.0.1:3000;
         proxy_set_header Host $host;
@@ -55,6 +37,7 @@ server {
     ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
 
 }
+
 server {
     if ($host = acerstest.website) {
         return 301 https://$host$request_uri;
