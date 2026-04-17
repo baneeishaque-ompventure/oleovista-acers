@@ -4,3 +4,6 @@
 [submodule "acers-web"]
 	path = acers-web
 	url = https://github.com/anushadpk/acers-web.git
+[submodule "acers-web-vite-react-ts"]
+	path = acers-web-vite-react-ts
+	url = https://github.com/baneeishaque-ompventure/acers-web-vite-react-ts.git
