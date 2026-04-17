@@ -2,7 +2,7 @@ server {
     server_name acerstest.website;
 
     # Proxy all API calls to Django backend
-    location ~ ^/(api|users|chat|paper-app|permission|plans|scheduler|web_settings|admin|media|static-backend|company/subscribed-apps|company/current/user|company/users/lists) {
+    location ~ ^/(api|users|chat|paper-app|permission|plans|scheduler|web_settings|admin|media|static-backend|company/subscribed-apps|company/current/user|company/users/lists|company/company-subscription/list|company/organization|company/company-users/history|company/payments/history|company/company-profile/plan-details|company/company-profile-details|company/plan-re-purchase|settings/country/default-country|company/company-subscription/create|company/company-trail/list|company/create/group|company/list/group|company/user/groups|company/user/availability|company/create/user) {
         proxy_pass http://127.0.0.1:8001;
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
