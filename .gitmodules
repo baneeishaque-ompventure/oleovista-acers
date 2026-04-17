@@ -7,3 +7,6 @@
 [submodule "acers-web-vite-react-ts"]
 	path = acers-web-vite-react-ts
 	url = https://github.com/baneeishaque-ompventure/acers-web-vite-react-ts.git
+[submodule "acers-e2e-cucumber-selenium-maven"]
+	path = acers-e2e-cucumber-selenium-maven
+	url = https://github.com/baneeishaque-ompventure/acers-e2e-cucumber-selenium-maven.git
