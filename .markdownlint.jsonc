@@ -1,0 +1,10 @@
+{
+    // MD013: Line Length
+    // Set to 120 characters per "Markdown Generation Rules".
+    // Code blocks and tables are excluded to prevent functional breakage.
+    "MD013": {
+        "line_length": 120,
+        "code_blocks": false,
+        "tables": false
+    }
+}
