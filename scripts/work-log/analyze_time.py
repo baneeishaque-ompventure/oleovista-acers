@@ -61,21 +61,18 @@ def main():
         print("No valid entries found in the file.")
         return
 
+    print(f"# Time Tracking Analysis - {filename}")
+
     # --- TABLE 1: EACH ENTRY ---
-    print("\n" + "="*100)
-    print(f"{'TABLE 1: INDIVIDUAL ENTRIES':^100}")
-    print("="*100)
-    header = f"{'Date':<12} | {'Time Range':<22} | {'Duration':<10} | {'Entry Description'}"
-    print(header)
-    print("-" * len(header))
+    print("\n## 1. Individual Entries")
+    print("| Date | Time Range | Duration | Description |")
+    print("| :--- | :--- | :--- | :--- |")
     
     for e in entries:
-        print(f"{e['date']:<12} | {e['range']:<22} | {format_duration(e['duration']):<10} | {e['desc']}")
+        print(f"| {e['date']} | {e['range']} | {format_duration(e['duration'])} | {e['desc']} |")
     
     # --- TABLE 2: GROUPED BY DAY ---
-    print("\n" + "="*100)
-    print(f"{'TABLE 2: DAILY SUMMARY & DETAILS':^100}")
-    print("="*100)
+    print("\n## 2. Daily Summaries")
     
     days_data = defaultdict(list)
     for e in entries:
@@ -90,23 +87,22 @@ def main():
         day_total = sum(e['duration'] for e in day_entries)
         total_month_seconds += day_total
         
-        day_header = f"DATE: {date} | TOTAL TIME: {format_duration(day_total)}"
-        print(f"\n{day_header}")
-        print("-" * len(day_header))
+        print(f"\n### {date} (Total: {format_duration(day_total)})")
+        print("| Time Range | Duration | Description |")
+        print("| :--- | :--- | :--- |")
         for e in day_entries:
-            print(f"  [{format_duration(e['duration'])}] {e['range']} -> {e['desc']}")
+            print(f"| {e['range']} | {format_duration(e['duration'])} | {e['desc']} |")
     
     # --- FINAL SUMMARY ---
     num_days = len(sorted_dates)
     avg_seconds = total_month_seconds / num_days if num_days > 0 else 0
     
-    print("\n" + "="*40)
-    print(f"{'MONTHLY TOTALS':^40}")
-    print("="*40)
-    print(f"Total Time for Month:  {format_duration(total_month_seconds)} ({total_month_seconds/3600:.2f} hours)")
-    print(f"Average Time per Day:  {format_duration(avg_seconds)} ({avg_seconds/3600:.2f} hours)")
-    print(f"Number of Active Days: {num_days}")
-    print("="*40 + "\n")
+    print("\n## 3. Monthly Statistics")
+    print("| Metric | Value |")
+    print("| :--- | :--- |")
+    print(f"| **Total Monthly Time** | {format_duration(total_month_seconds)} ({total_month_seconds/3600:.2f} hours) |")
+    print(f"| **Average Daily Time** | {format_duration(avg_seconds)} ({avg_seconds/3600:.2f} hours) |")
+    print(f"| **Number of Active Days** | {num_days} |")
 
 if __name__ == "__main__":
     main()
